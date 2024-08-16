@@ -1,0 +1,16 @@
+.login__submit {
+  width: 358px;
+  margin: 0 auto;
+  height: 50px;
+  background-color: #fff;
+  margin-top: 180px;
+  cursor:pointer;
+}
+
+@media screen and (max-width: 580px) {
+  .login__submit {
+    width: 90%;
+    font-size: 16px;
+    font-weight: 400;
+  }
+}

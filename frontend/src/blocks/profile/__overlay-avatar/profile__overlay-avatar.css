@@ -1,0 +1,15 @@
+.profile__overlay-avatar{
+    background-color: rgba(0,0,0,0.6);
+    position:absolute;
+    top:0;
+    left:0px;
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    transform:scale(0);
+    transition:all .3s ease;
+}
+.profile__overlay-avatar--show{
+    transform:scale(1);
+    z-index:10;
+}

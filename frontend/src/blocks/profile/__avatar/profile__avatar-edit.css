@@ -1,0 +1,28 @@
+.profile__avatar-edit {
+  background-image : url(../../../images/edit_profile.png);
+  background-repeat: no-repeat;
+  background-color : transparent;
+  position         : absolute;
+  top              : 55px;
+  left             : 55px;
+  width            : 26px;
+  height           : 26px;
+  border           : none;
+
+  cursor           : pointer;
+  transition   : transform 1s ease;
+  transform:scale(0);
+  z-index: 20;
+
+}
+
+.profile__avatar-edit--show {
+  transform:scale(1);
+}
+
+@media screen and (max-width: 812px) {
+  .profile__avatar-edit {
+    text-align   : center;
+    margin-bottom: 26.25px;
+  }
+}

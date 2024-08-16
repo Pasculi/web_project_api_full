@@ -1,0 +1,16 @@
+.popup__button-close-avatar-edit{
+  width           : 40px;
+  position        : absolute;
+  top             : 0px;
+  right           : 0;
+  background-color: transparent;
+  border          : none;
+  cursor          : pointer;
+}
+
+@media screen and (max-width: 594px) {
+  .popup__button-close-avatar-edit {
+    width: 26px;
+    right: 25px;
+  }
+}

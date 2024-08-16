@@ -1,0 +1,18 @@
+.card__place {
+  position        : relative;
+  display: inline-block;
+  top             : 3rem;
+  width           : 282px;
+  min-height: 365px;
+  background-color: #fff;
+  border-radius   : 10px 10px 10px 10px;
+  overflow        : hidden;
+
+
+}
+.card__place-delete{
+  opacity: 0;
+}
+
+
+

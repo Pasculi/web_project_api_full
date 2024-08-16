@@ -1,0 +1,10 @@
+.login__register{
+  margin-top:10px;
+  width: 358px;
+  text-align: center;
+  font-size: 14px;
+}
+.login__register a{
+  color: #FFF;
+  text-decoration: none;
+}

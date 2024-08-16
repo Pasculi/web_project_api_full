@@ -1,0 +1,19 @@
+.profile__activit {
+  margin       : 0;
+  font-style   : normal;
+  font-weight  : 400;
+  width        : 400px;
+  text-overflow: ellipsis;
+  white-space  : nowrap;
+  overflow     : hidden;
+  font-size    : 1.125rem;
+  line-height  : 1.375rem;
+}
+
+@media screen and (max-width: 812px) {
+  .profile__activit {
+    width    : 280px;
+    font-size: 14px;
+
+  }
+}

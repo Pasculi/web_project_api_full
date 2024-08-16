@@ -1,0 +1,25 @@
+.profile__author {
+  margin       : 0;
+  font-style   : normal;
+  font-weight  : 500;
+  width        : 400px;
+  text-overflow: ellipsis;
+  white-space  : nowrap;
+  overflow     : hidden;
+  font-size    : 2.625rem;
+  line-height  : 1.33;
+}
+
+@media screen and (max-width: 812px) {
+  .profile__author {
+    width: 282px;
+    text-align: center;
+    font-size: 22px;
+  }
+}
+
+@media screen and (max-width: 587px) {
+  .profile__author {
+    font-size: 22px;
+  }
+}

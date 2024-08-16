@@ -1,0 +1,30 @@
+.profile__author-button-add-place{
+  width              : 9.375rem;
+  height             : 3.125rem;
+  border             : 2px solid #FFFFFF;
+  outline            : none;
+  border-radius      : 2px;
+  cursor             : pointer;
+  background-image   : url(../../../images/vector__add.png);
+  background-repeat  : no-repeat;
+  background-position: center center;
+  background-color: #000000;
+  opacity   :1;
+  transition: opacity .3s;
+  }
+
+  .profile__author-button-add-place:hover {
+    opacity: .6;
+  }
+@media screen and (max-width: 892px) {
+  .profile__author-button-add-place {
+    margin-right: 21px;
+  }
+}
+
+@media screen and (max-width: 812px) {
+  .profile__author-button-add-place {
+    width: 282px;
+    margin: 0;
+  }
+}

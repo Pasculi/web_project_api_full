@@ -1,0 +1,23 @@
+.card__place-button--like {
+  border          : none;
+  width           : 21px;
+  height          : 19px;
+  background-color: transparent;
+  fill            : currentColor;
+  color           : black;
+  padding         : 0 22px 0 0;
+  background      : url('../../../images/vector__like.svg') center no-repeat;
+  cursor          : pointer;
+  opacity         : 0.5;
+  /* transition      : 0.3s; */
+}
+
+.card__place-button--like:hover {
+  transition: .5s;
+  transform : scale(1.2);
+}
+
+.card__place-button--like-active {
+  opacity   : 1;
+  background: url('../../../images/vector__like-black.svg') center no-repeat;
+}

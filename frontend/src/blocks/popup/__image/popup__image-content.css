@@ -1,0 +1,9 @@
+.popup__image-content {
+  position     : relative;
+  width        : fit-content;
+  margin       : 80px auto;
+  display      : flex;
+  justify-items: center;
+  padding-top  : 20px;
+  color        : #FFF;
+}

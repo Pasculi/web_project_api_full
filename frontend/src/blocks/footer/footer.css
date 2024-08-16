@@ -1,0 +1,26 @@
+.footer {
+  display       : flex;
+  width         : 100%;
+  margin-top    : 68px;
+  color         : #545454;
+  font-style    : normal;
+  font-weight   : 400;
+  font-size     : 18px;
+  line-height   : 22px;
+  padding-bottom: 60px;
+
+}
+
+@media screen and (max-width: 920px) {
+  .footer {
+    width          : 65%;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 589px) {
+  .footer {
+    width       : 17.625rem;
+    padding-left: 0;
+  }
+}

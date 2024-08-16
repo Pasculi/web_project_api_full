@@ -1,0 +1,20 @@
+.popup-avatar-edit-container {
+  background-color: transparent;
+  position        : fixed;
+  margin          : auto;
+  width           : 500px;
+  height          : 291px;
+  display         : flex;
+  flex-direction  : column;
+  align-items     : center;
+}
+
+
+@media screen and (max-width:812px) {
+  .popup-avatar-edit-container {
+    top   : 350px;
+    left  : 60;
+    width : 375px;
+    height: 324px;
+  }
+}

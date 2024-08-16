@@ -1,0 +1,14 @@
+.card__place-button--delete {
+  position        : absolute;
+  display:block;
+  background-color: transparent;
+  top             : 18px;
+  right           : 15px;
+  border          : none;
+  cursor          : pointer;
+
+}
+
+.card__place-button--delete-hidden{
+  display: none;
+}

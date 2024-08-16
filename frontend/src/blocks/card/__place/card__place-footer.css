@@ -1,0 +1,8 @@
+.card__place-footer{
+  display        : flex;
+color          :#000;
+height         : 4.938rem;
+padding        :0 16px;
+justify-content: space-between;
+align-items    : center;
+}

@@ -1,0 +1,19 @@
+.root__container {
+  width: 880px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin   : auto;
+}
+
+@media screen and (max-width:769px) {
+  .root__container {
+    display        : flex;
+    width: fit-content;
+    flex-direction : column;
+    justify-content: center;
+    align-items    : center;
+    margin: 0 auto;
+
+  }
+}

@@ -1,0 +1,17 @@
+.popup__image-url{
+  width:579px;
+}
+
+@media screen and (max-width:802px) {
+  .popup__image-url {
+    width: 80%;
+    height: fit-content;
+  }
+}
+
+@media screen and (max-width:632px) {
+  .popup__image-url {
+    width: 262px;
+    height: fit-content;
+  }
+}

@@ -1,0 +1,23 @@
+.profile__author-button-edit{
+  border             : 1px solid #FFFFFF;
+  width              : 1.5rem;
+  height             : 1.5rem;
+  cursor             : pointer;
+  background-image   : url(../../../images/vector__edit.png);
+  background-repeat  : no-repeat;
+  background-position: center center;
+  background-color: #000000;
+  opacity:1;
+  transition: opacity .3s;
+}
+.profile__author-button-edit:hover{
+  opacity:.6;
+}
+
+
+@media screen and (max-width: 587px) {
+  .profile__author-button-edit {
+    width : 1.1rem;
+    height: 1.1rem;
+  }
+}

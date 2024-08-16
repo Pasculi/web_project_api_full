@@ -1,0 +1,21 @@
+.popup-avatar-edit {
+  display         : flex;
+  width           : 100vw;
+  position        : absolute;
+  justify-content : center;
+  padding-top     : 185px;
+  top             : 0;
+  left            : 0;
+  right           : 0;
+  margin          : auto;
+  background-color: #00000080;
+  opacity         : 0;
+  transition      : opacity .6s;
+  z-index         : -10;
+}
+
+.popup-avatar-edit--show {
+  opacity: 1;
+  pointer-events: initial;
+  z-index: 10;
+}
