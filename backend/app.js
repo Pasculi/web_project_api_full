@@ -1,33 +1,45 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const { PORT = 3000 } = process.env;
+const express = require("express");
+const mongoose = require("mongoose");
 const app = express();
-const {HttpStatus,HttpResponseMessage} = require("./enums/httpError")
+const { HttpStatus, HttpResponseMessage } = require("./enums/httpError");
+const auth = require("./middlewares/auth");
+const authRoutes = require("./routes/auth");
+const usersRouter = require("./routes/users");
+const cardsRouter = require("./routes/cards");
+require("dotenv").config();
+const { errors } = require("celebrate");
 
-const usersRouter = require('./routes/users');
-const cardsRouter = require('./routes/cards');
-
-
+const { PORT } = process.env;
 app.use(express.json());
 
-app.use((req, res, next) => {
-  req.user = {
-    _id: '666a3de9a5ed11f58fb3b118'
-    };
+app.use(authRoutes);
 
-    next();
-    });
+app.use(auth);
 
-    mongoose.connect(`mongodb://localhost:27017/aroundb`).then(()=> console.log("MongoDB connect successfully"))
-      .catch(err=> console.error("Mongo connection error",err))
 
-      app.use('/users', usersRouter);
-      app.use('/cards', cardsRouter);
+mongoose
+  .connect("mongodb+srv://jsepulveda:tripleten2024@around.6vg4o.mongodb.net/")
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch((err) => console.error("Mongo connection error", err));
 
-      app.use((req, res) => {
-        return res.status(HttpStatus.NOT_FOUND).send({message: HttpResponseMessage.NOT_FOUND});
-        });
+/* mongoose
+  .connect(`mongodb://localhost:27017/aroundb`)
+  .then(() => console.log("MongoDB connect successfully"))
+  .catch((err) => console.error("Mongo connection error", err));
+ */
+app.use("/users", usersRouter);
+app.use("/cards", cardsRouter);
 
-        app.listen(PORT, () => {
-          console.log(`http://localhost:${PORT}`);
-          });
+app.use(errors());
+
+app.use('/', (req, res) => {
+  return res
+    .status(HttpStatus.NOT_FOUND)
+    .send({ message: HttpResponseMessage.NOT_FOUND });
+});
+
+app.listen(PORT, () => {
+  console.log(`http://localhost:${PORT}`);
+});
