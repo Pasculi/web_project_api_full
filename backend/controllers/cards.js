@@ -4,7 +4,7 @@ const Card = require("../models/card");
 exports.getCards = async (req, res) => {
   try {
     const cards = await Card.find({}).orFail(() => {
-      const error = new Error("Users not found");
+      const error = new Error("Cards not found");
       error.statusCode = 404;
       throw error;
     });
