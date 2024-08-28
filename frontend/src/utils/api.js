@@ -65,7 +65,7 @@ class Api {
       .catch(error => console.error('Error al añadir una tarjeta:', error));
 
   }
-  deleteCard(idCard) {
+  deleteCard(idCard) {    
     return fetch(`${this._baseUrl}/cards/${idCard}`, {
       headers: this._headers,
       method: 'DELETE',

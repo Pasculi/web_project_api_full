@@ -28,7 +28,7 @@ exports.createCard = async (req, res) => {
 
 exports.deleteCard = async (req, res) => {
   try {
-    const card = await Card.findByIdAndRemove(req.params.cardId);
+    const card = await Card.findOneAndDelete(req.params.cardId);
     if (!card) {
       return res.status(400).json({ message: "Card not found" });
     }

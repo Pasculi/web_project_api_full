@@ -7,28 +7,22 @@ const authRoutes = require("./routes/auth");
 const usersRouter = require("./routes/users");
 const cardsRouter = require("./routes/cards");
 require("dotenv").config();
+const cors = require('cors');
 const { errors } = require("celebrate");
+const { PORT } = process.env || 5001;
 
-const { PORT } = process.env;
+app.use(cors());
+app.options("*", cors());
 app.use(express.json());
-
 app.use(authRoutes);
-
 app.use(auth);
 
-
+mongoose.set("strictQuery", false);
 mongoose
-  .connect("mongodb+srv://jsepulveda:tripleten2024@around.6vg4o.mongodb.net/")
-  .then(() => {
-    console.log("Connected to MongoDB");
-  })
-  .catch((err) => console.error("Mongo connection error", err));
-
-/* mongoose
-  .connect(`mongodb://localhost:27017/aroundb`)
+  .connect(`${process.env.DB_URI}`)
   .then(() => console.log("MongoDB connect successfully"))
   .catch((err) => console.error("Mongo connection error", err));
- */
+
 app.use("/users", usersRouter);
 app.use("/cards", cardsRouter);
 
@@ -41,5 +35,5 @@ app.use('/', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`http://localhost:${PORT}`);
+  console.log(`Conectado a servidor http://localhost:${PORT}`);
 });
