@@ -33,9 +33,8 @@ function App() {
   const [currentPage, setCurrentPage] = useState('');
   const [isOpenConfirmation, setIsOpenConfirmation] = useState(false);
   const [isbuttonActive, setIsbuttonActive] = useState(false);
-
-
   const navigate = useNavigate();
+
 
   function handleCardDelete(card) {
     return api.deleteCard(card._id)
@@ -60,9 +59,6 @@ function App() {
     });
   }
 
-  useEffect(() => {
-    const user = api.getUserInfo().then((data) => setCurrentUser(data));
-  }, []);
 
   const handleUpdateUser = ({ name, about }) => {
     api
@@ -101,12 +97,7 @@ function App() {
     setSelectedCard(card);
   };
 
-  useEffect(() => {
-    api.getInitialCards().then((res) => {
-      setCards(res);
-    });
-  }, []);
-
+  
   const handleAddPlaceSubmit = ({ name, link }) => {
     api.addCard({ name, link }).then((newCard) => {
       setCards([newCard, ...cards]);
@@ -114,26 +105,24 @@ function App() {
     });
   };
 
-  function handleUpdateAvatar({ avatar }) {
-    api.updateAvatar(avatar);
-    setCurrentUser({ ...currentUser, avatar: avatar });
-    closeAllPopups();
-  }
-
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
+      api.setToken(token)
       getUserInfo(token)
       setCurrentPage('/signin')
     } else {
       navigate("/signin");
     }
   }, []);
-  
+
+
+
   const handleLogin = async ({ email, password }) => {
     try {
       const { token, message } = await auth.login({ email, password });
       if (token) {
+        api.setToken(token);
         localStorage.setItem("token", token);
         getUserInfo(token);
       } else {
@@ -154,6 +143,14 @@ function App() {
     setLoggedIn(false);
     navigate("/signin");
   };
+
+  function handleUpdateAvatar({ avatar }) {
+    api.updateAvatar(avatar);
+    setCurrentUser({ ...currentUser, avatar: avatar });
+    closeAllPopups();
+  }
+
+  
 
   const handleRegister = async ({ email, password }) => {
     try {

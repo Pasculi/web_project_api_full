@@ -1,111 +1,106 @@
 class Api {
-  constructor(baseUrl, headers) {
-    this._baseUrl = baseUrl;
-    this._headers = headers;
-
-  }
-  handleResponse(res) {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Error: ${res.status}`);
+  constructor(url, token) {
+    this._url = url;
+    this._token = token;
   }
 
-  getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`,
-      { headers: this._headers }
-    )
-      .then(this.handleResponse)
-      .catch(error => console.error('Error al obtener las cards:', error));
+  setToken(token) {
+    this._token = `Bearer ${token}`;
   }
 
   getUserInfo() {
-    return fetch(`${this._baseUrl}/users/me`,
-      { headers: this._headers }
-    )
-      .then(this.handleResponse)
-      .catch(error => console.error('Error al obtener la información del usuario:', error));
+    return fetch(`${this._url}/users/me`, {
+      headers: {
+        authorization: this._token,
+        "Content-Type": "application/json",
+      },
+    }).then((response) => response.json());
   }
-  updateUser({name, about}) {
-    return fetch(`${this._baseUrl}/users/me`, {
-      headers:
-        this._headers,
-      method: 'PATCH',
+
+  updateUser({ name, about }) {
+    return fetch(`${this._url}/users/me`, {
+      headers: {
+        authorization: this._token,
+        "Content-Type": "application/json",
+      },
+      method: "PATCH",
       body: JSON.stringify({
         name,
-        about
-      })
-    })
-      .then(this.handleResponse)
-      .catch(error => console.error('Error al actualizar al usuario', error));
-
+        about,
+      }),
+    }).then((response) => response.json());
   }
+
   updateAvatar(avatar) {
-    return fetch(`${this._baseUrl}/users/me/avatar`, {
-      headers:
-        this._headers,
-      method: 'PATCH',
+    return fetch(`${this._url}/users/me/avatar`, {
+      headers: {
+        authorization: this._token,
+        "Content-Type": "application/json",
+      },
+      method: "PATCH",
       body: JSON.stringify({
-        avatar
-      })
-    })
-      .then(this.handleResponse)
-      .catch(error => console.error('Error al actualizar al avatar:', error));
+        avatar,
+      }),
+    }).then((response) => response.json());
   }
-  addCard({name, link}) {
-    return fetch(`${this._baseUrl}/cards`, {
-      headers: this._headers,
-      method: 'POST',
+
+  getInitialCards() {
+    return fetch(`${this._url}/cards`, {
+      headers: {
+        authorization: this._token,
+        "Content-Type": "application/json",
+      },
+    }).then((response) => response.json());
+  }
+
+  addCard({ name, link }) {
+    return fetch(`${this._url}/cards`, {
+      headers: {
+        authorization: this._token,
+        "Content-Type": "application/json",
+      },
+      method: "POST",
       body: JSON.stringify({
+        link,
         name,
-        link
-      })
-    })
-      .then(this.handleResponse)
-      .catch(error => console.error('Error al añadir una tarjeta:', error));
-
+      }),
+    }).then((response) => response.json());
   }
-  deleteCard(idCard) {    
-    return fetch(`${this._baseUrl}/cards/${idCard}`, {
-      headers: this._headers,
-      method: 'DELETE',
-      body: JSON.stringify({
-        idCard
-      })
-    })
-      .then(this.handleResponse)
-      .catch(error => console.error('Error al eliminar una tarjeta:', error));
-
+  deleteCard(idCard) {
+    return fetch(`${this._url}/cards/${idCard}`, {
+      headers: {
+        authorization: this._token,
+        "Content-Type": "application/json",
+      },
+      method: "DELETE",
+    }).then((response) => response.json());
   }
-  likeCard(id, isLiked) {
+
+  likeCard(idCard, isLiked) {
     const method = isLiked ? "DELETE" : "PUT";
-    return fetch(`${this._baseUrl}/cards/likes/${id}`, {
-      headers: this._headers,
+    return fetch(`${this._url}/cards/likes/${idCard}`, {
+      headers: {
+        authorization: this._token,
+        "Content-Type": "application/json",
+      },
       method: method,
-      body: JSON.stringify({
-        id
-      })
-    })
-      .then(this.handleResponse)
-      .catch(error => console.error('Error al dar like a la tarjeta:', error));
+    }).then((response) => response.json());
   }
-  deleteLikeCard(id) {
-    return fetch(`${this._baseUrl}/cards/likes/${id}`, {
-      headers: this._headers,
-      method: 'DELETE',
-      body: JSON.stringify({
-        id
-      })
-    })
-      .then(this.handleResponse)
-      .catch(error => console.error('Error al quitar like a la tarjeta', error));
+  deleteLikeCard(idCard) {
+    return fetch(`${this._url}/cards/likes/${idCard}`, {
+      headers: {
+        authorization: this._token,
+        "Content-Type": "application/json",
+      },
+      method: "DELETE",
+    }).then((response) => response.json());
   }
 }
 
-const api = new Api('https://around.nomoreparties.co/v1/web_es_11', {
 
-  authorization: "962f1eb6-c335-46ac-b3a5-7d22c2a5fd9a", "Content-Type": "application/json"
-
-});
+const api = new Api(
+  "http://localhost:5000",
+  "962f1eb6-c335-46ac-b3a5-7d22c2a5fd9a"
+);
 
 export default api;
