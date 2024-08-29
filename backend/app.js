@@ -11,18 +11,6 @@ const cors = require('cors');
 const { errors } = require("celebrate");
 const { PORT } = process.env || 5001;
 
-
-const HttpStatus = {
-  NOT_FOUND: 404,
-};
-
-const HttpResponseMessage = {
-  NOT_FOUND: {
-    status: false,
-    message: "NOT FOUND",
-  },
-};
-
 app.use(cors());
 app.options("*", cors());
 app.use(express.json());

@@ -28,7 +28,7 @@ exports.createCard = async (req, res) => {
 
 exports.deleteCard = async (req, res) => {
   try {
-    const card = await Card.findOneAndDelete(req.params.cardId);
+    const card = await Card.findOneAndDelete(req.cardId);
     if (!card) {
       return res.status(400).json({ message: "Card not found" });
     }
@@ -75,7 +75,7 @@ exports.updateUserAvatar = async (req, res) => {
 exports.likeCard = async (req, res) => {
   try {
     const card = await Card.findByIdAndUpdate(
-      req.params.cardId,
+      req.cardId,
       { $addToSet: { likes: req.user._id } },
       { new: true }
     );
@@ -91,7 +91,7 @@ exports.likeCard = async (req, res) => {
 exports.dislikeCard = async (req, res) => {
   try {
     const card = await Card.findByIdAndUpdate(
-      req.params.cardId,
+      req.cardId,
       { $pull: { likes: req.user._id } },
       { new: true }
     );

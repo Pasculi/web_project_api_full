@@ -35,6 +35,7 @@ function App() {
   const [isbuttonActive, setIsbuttonActive] = useState(false);
   const navigate = useNavigate();
 
+  console.log(cards)
 
   function handleCardDelete(card) {
     return api.deleteCard(card._id)
@@ -174,11 +175,15 @@ function App() {
 
   const getUserInfo = (token) => {
     auth.userInfo(token).then((user) => {
-      const userEmail = user.data.email;
+      console.log(user)
+      const userEmail = user.email;
       setCurrentEmail(userEmail);
       setLoggedIn(true);
       api.getInitialCards().then((cards) => {
-        setCards(cards);
+        if (Array.isArray(cards)) {
+          setCards(cards);
+        }
+        /* setCards(cards); */
       });
       api.getUserInfo().then((user) => {
         setCurrentUser(user);

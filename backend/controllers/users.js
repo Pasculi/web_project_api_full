@@ -1,13 +1,13 @@
-const bcrypt = require('bcryptjs');
-const User = require('../models/user');
-const jwt = require('jsonwebtoken');
+const bcrypt = require("bcryptjs");
+const User = require("../models/user");
+const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const { JWT_SECRET } = process.env;
 
 exports.getUsers = async (req, res) => {
   try {
     const users = await User.find({}).orFail(() => {
-      const error = new Error('Users not found');
+      const error = new Error("Users not found");
       error.statusCode = 404;
       throw error;
     });
@@ -19,9 +19,10 @@ exports.getUsers = async (req, res) => {
 
 exports.getUserById = async (req, res) => {
   try {
-    const user = await User.findById(req.params.userId);
+    console.log(req.user)
+    const user = await User.findById(req.user._id);
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
     res.status(200).json(user);
   } catch (error) {
@@ -29,45 +30,41 @@ exports.getUserById = async (req, res) => {
   }
 };
 
-module.exports.createUser = (req, res, next) => {
+module.exports.createUser = async (req, res, next) => {
   const { name, about, avatar, email } = req.body;
 
-  User.findOne({ email })
-    .then((user) => {
-      if (user) {
-        throw new Error(" El email ya se encuentra registrado"); // correccion del email y el password en createUser
-      } else {
-        return bcrypt.hash(req.body.password, 10);
-      }
-    })
+  let user = await User.findOne({ email });
+  if (user) {
+    throw new Error(" El email ya se encuentra registrado"); // correccion del email y el password en createUser
+  }
+  /* const hash = await bcrypt.hash(req.body.password, 10); */
 
-    .then((hash) => {
-      User.create({ name, about, avatar, email, password: hash });
-    })
-
-    .then((user) => {
+  bcrypt.genSalt(10, function (err, salt) {
+    bcrypt.hash(req.body.password, salt, async function (err, hash) {
+      user =  await User.create({ name, about, avatar, email, password: hash });
       res.send({ user });
-    })
+      // Store hash in your password DB.
+    });
+  });
 
-    .catch(next);
 };
-
-
 
 module.exports.login = async (req, res, next) => {
   const { email, password } = req.body;
   try {
-    const user = await User.findOne({ email }).select('+password');
+    const user = await User.findOne({ email }).select("+password");
+    console.log(user)
     if (!user) {
-      return res.status(401).send({ message: 'Invalid email or password' });
+      return res.status(401).send({ message: "Invalid email or password" });
+    }
+    console.log(password)
+    const isMatched = await bcrypt.compare(password, user.password);
+    console.log(isMatched);
+    if (!isMatched) {
+      return res.status(401).send({ message: "Invalid email or password" });
     }
 
-    const matched = await bcrypt.compare(password, user.password);
-    if (!matched) {
-      return res.status(401).send({ message: 'Invalid email or password' });
-    }
-
-    const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
+    const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: "7d" });
     res.send({ token });
   } catch (err) {
     next(err);
@@ -82,7 +79,7 @@ exports.updateProfile = async (req, res) => {
       { name, about },
       { new: true, runValidators: true }
     ).orFail(() => {
-      const error = new Error('User not found');
+      const error = new Error("User not found");
       error.statusCode = 404;
       throw error;
     });
@@ -101,7 +98,7 @@ exports.updateAvatar = async (req, res) => {
       { avatar },
       { new: true, runValidators: true }
     ).orFail(() => {
-      const error = new Error('User not founds');
+      const error = new Error("User not founds");
       error.statusCode = 404;
       throw error;
     });
