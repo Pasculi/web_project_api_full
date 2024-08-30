@@ -35,7 +35,6 @@ function App() {
   const [isbuttonActive, setIsbuttonActive] = useState(false);
   const navigate = useNavigate();
 
-  console.log(cards)
 
   function handleCardDelete(card) {
     return api.deleteCard(card._id)
@@ -55,7 +54,8 @@ function App() {
  
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
-    api.likeCard(card._id, isLiked).then((newCard) => {
+    api.likeCard(card._id, isLiked)
+    .then((newCard) => {
       setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
     });
   }
@@ -175,7 +175,6 @@ function App() {
 
   const getUserInfo = (token) => {
     auth.userInfo(token).then((user) => {
-      console.log(user)
       const userEmail = user.email;
       setCurrentEmail(userEmail);
       setLoggedIn(true);

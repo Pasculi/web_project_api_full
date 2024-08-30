@@ -77,8 +77,6 @@ class Api {
   }
 
   likeCard(idCard, isLiked) {
-    console.log(idCard)
-    console.log(`${this._url}/cards/likes/${idCard}`);
     const method = isLiked ? "DELETE" : "PUT";
     return fetch(`${this._url}/cards/likes/${idCard}`, {
       headers: {
@@ -88,6 +86,7 @@ class Api {
       method: method,
     }).then((response) => response.json());
   }
+  
   deleteLikeCard(idCard) {
     return fetch(`${this._url}/cards/likes/${idCard}`, {
       headers: {

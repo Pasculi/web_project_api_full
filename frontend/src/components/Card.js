@@ -3,15 +3,17 @@ import trash from "../images/vector__eliminar.png";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 const Card = ({ index, isOpen, card, onCardClick, onCardLike }) => {
+  
   const { currentUser } = useContext(CurrentUserContext);
-
-  const isOwn = currentUser && card.owner._id === currentUser._id;
+  const isOwn = currentUser && card.owner === currentUser._id;
+  
   const cardDeleteButtonClassName = `card__place-button--delete ${
-    isOwn ? "card__place-button--delete" : "card__place-button--delete-hidden"
+    isOwn ? "" : "card__place-button--delete-hidden"
   }`;
 
-  const isLiked =
-    currentUser && card.likes.some((i) => i._id === currentUser._id);
+  const isLiked = currentUser && card.likes.some((i) => i._id === currentUser._id);
+
+
   const cardLikeButtonClassName = `card__place-button--like ${
     isLiked ? "card__place-button--like-active" : ""
   }`;
@@ -19,6 +21,7 @@ const Card = ({ index, isOpen, card, onCardClick, onCardLike }) => {
   const handleOpenConfirm = () => {
   isOpen(true);
   };
+  
   const handleLikeClick = () => {
     onCardLike(card);
   };
@@ -31,14 +34,17 @@ const Card = ({ index, isOpen, card, onCardClick, onCardLike }) => {
     <>
       <div key={index} className="card">
         <div className="card__place">
-          <button className="card__place-button--delete">
+         {isOwn &&(
+
+          <button className="card__place-button--delete" onClick={handleOpenConfirm}>
             <img
-              className={cardDeleteButtonClassName}
-              onClick={()=>handleOpenConfirm()}
+              className={cardDeleteButtonClassName}              
               src={trash}
               alt="Eliminar"
             />
           </button>
+         )}
+
           <div className="card__place-container-image">
             <img
               className="card__place-image-place"
@@ -55,7 +61,7 @@ const Card = ({ index, isOpen, card, onCardClick, onCardLike }) => {
                 onClick={handleLikeClick}
               ></button>
               <span className="card__place-like-counter">
-                {card.likes.length}
+              {card.likes ? card.likes.length : 0}
               </span>
             </div>
           </div>

@@ -16,7 +16,7 @@ const cardSchema = new mongoose.Schema({
     message: props => `${props.value} is not a valid URL`
   },
   owner :{
-    type: [mongoose.Schema.Types.ObjectId],
+    type: mongoose.Schema.Types.ObjectId,
     require: true
 
   },
@@ -26,7 +26,7 @@ const cardSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now
+    default: Date.now()
   }
 });
 

@@ -19,7 +19,7 @@ exports.getUsers = async (req, res) => {
 
 exports.getUserById = async (req, res) => {
   try {
-    console.log(req.user)
+
     const user = await User.findById(req.user._id);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -53,13 +53,13 @@ module.exports.login = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email }).select("+password");
-    console.log(user)
+
     if (!user) {
       return res.status(401).send({ message: "Invalid email or password" });
     }
-    console.log(password)
+
     const isMatched = await bcrypt.compare(password, user.password);
-    console.log(isMatched);
+
     if (!isMatched) {
       return res.status(401).send({ message: "Invalid email or password" });
     }

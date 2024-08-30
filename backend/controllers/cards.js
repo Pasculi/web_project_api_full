@@ -28,11 +28,11 @@ exports.createCard = async (req, res) => {
 
 exports.deleteCard = async (req, res) => {
   try {
-    const card = await Card.findOneAndDelete(req.cardId);
+    const card = await Card.findOneAndDelete(req.params.cardId);
     if (!card) {
       return res.status(400).json({ message: "Card not found" });
     }
-    res.status(200).json({ message: "card deleted" });
+    res.status(200).json({ message: "Card deleted" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -46,7 +46,7 @@ exports.upadateUserProfile = async (req, res) => {
       new: true,
     });
     if (!updateUser) {
-      return res.status(400).json({ message: "User not found" });
+      return res.status(400).json({ message: "Profile not found" });
     }
     res.status(200).json(updateUser);
   } catch (error) {
@@ -64,7 +64,7 @@ exports.updateUserAvatar = async (req, res) => {
       { new: true }
     );
     if (!updatedUser) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "Avatar not found" });
     }
     res.status(200).json(updatedUser);
   } catch (error) {
@@ -75,10 +75,11 @@ exports.updateUserAvatar = async (req, res) => {
 exports.likeCard = async (req, res) => {
   try {
     const card = await Card.findByIdAndUpdate(
-      req.cardId,
+      req.params.cardId,
       { $addToSet: { likes: req.user._id } },
       { new: true }
     );
+    console.log(card);
     if (!card) {
       return res.status(404).json({ message: "Card not found" });
     }
@@ -91,7 +92,7 @@ exports.likeCard = async (req, res) => {
 exports.dislikeCard = async (req, res) => {
   try {
     const card = await Card.findByIdAndUpdate(
-      req.cardId,
+      req.params.cardId,
       { $pull: { likes: req.user._id } },
       { new: true }
     );
