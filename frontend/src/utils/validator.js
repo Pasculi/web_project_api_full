@@ -5,7 +5,7 @@ export default class FormValidator {
     this._submitSelector = ".popup__button";
     this._inactiveSubmit = "popup__button-disabled";
     this._inputErrorClass = "popup__input-type-error";
-    this._errorClass = "popup__error-visible";
+    this._errorClass = "popup__input-type-error";
 
     this._inputList = Array.from(formElement.querySelectorAll(this._input));
     this._buttonElement = this._form.querySelector(this._submitSelector);

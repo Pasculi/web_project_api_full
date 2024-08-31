@@ -1,21 +1,54 @@
-import React, { useState } from 'react'
-import PopupWithForm from './PopupWithForm'
-import { useForm } from 'react-hook-form';
+import React, { useState } from "react";
+import PopupWithForm from "./PopupWithForm";
+import { useForm } from "react-hook-form";
 
 const AddPlacePopup = ({ isOpen, onClose, onAddPlaceSubmit }) => {
   const [name, setName] = useState("");
   const [link, setLink] = useState("");
-  const { register, handleSubmit, formState: {
-    errors,
-  } } = useForm();
+  const [nameError, setNameError] = useState("");
+  const [linkError, setLinkError] = useState("");
 
-  const onSubmit = handleSubmit((data) => {
-    onAddPlaceSubmit({ name, link });
-    setName("");
-    setLink("");
-    
-  })
+  const { handleSubmit } = useForm();
 
+  const validateName = (e) => {
+    const input = e.target;
+    setName(input.value);
+
+    if (!input.validity.valid) {
+      if (input.validity.valueMissing) {
+        setNameError("Este campo es requerido");
+      } else if (input.validity.tooShort) {
+        setNameError("El nombre debe tener al menos 2 caracteres");
+      } else if (input.validity.tooLong) {
+        setNameError("El nombre no debe tener más de 30 caracteres");
+      }
+    } else {
+      setNameError("");
+    }
+  };
+
+  const validateLink = (e) => {
+    const input = e.target;
+    setLink(input.value);
+
+    if (!input.validity.valid) {
+      if (input.validity.valueMissing) {
+        setLinkError("Este campo es requerido");
+      } else if (input.validity.typeMismatch) {
+        setLinkError("El enlace debe ser válido");
+      }
+    } else {
+      setLinkError("");
+    }
+  };
+
+  const onSubmit = handleSubmit(() => {
+    if (!nameError && !linkError) {
+      onAddPlaceSubmit({ name, link });
+      setName("");
+      setLink("");
+    }
+  });
 
   return (
     <PopupWithForm
@@ -35,25 +68,14 @@ const AddPlacePopup = ({ isOpen, onClose, onAddPlaceSubmit }) => {
           id="popup__input-name-place"
           placeholder="Title"
           value={name}
-          {...register("namePlace", {
-            required: {
-              value: true,
-              message: "Este campo es requerido",
-            },
-            minLength: {
-              value: 2,
-              message: "El nombre debe tener al menos 2 caracteres",
-            },
-            maxLength: {
-              value: 30,
-              message: "El nombre no debe tener más de 30 caracteres",
-            },
-          })}
-          onChange={(e) => setName(e.target.value)}
+          onChange={validateName}
+          required
+          minLength={2}
+          maxLength={30}
         />
-        {errors.namePlace && (
-          <span className="popup__input-error popup__input-name-place-error">
-            El nombre del lugar es requerido
+        {nameError && (
+          <span className="popup__input-error popup__error-visible">
+            {nameError}
           </span>
         )}
       </div>
@@ -65,28 +87,18 @@ const AddPlacePopup = ({ isOpen, onClose, onAddPlaceSubmit }) => {
           name="url-place"
           id="popup__input-url-place"
           placeholder="Enlace a la imagen"
-          {...register("urlPlace", {
-            required: {
-              value: true,
-              message: "Este campo es requerido",
-              pattern: {
-                value:   /(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z]{2,}(\.[a-zA-Z]{2,})(\.[a-zA-Z]{2,})?\/[a-zA-Z0-9]{2,}|((https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z]{2,}(\.[a-zA-Z]{2,})(\.[a-zA-Z]{2,})?)|(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})?/g,
-      message: "El enlace debe ser válido",
-
-              }
-            },
-          })}
           value={link}
-          onChange={(e) => setLink(e.target.value)}
+          onChange={validateLink}
+          required
         />
-        {errors.urlPlace && (
-          <span className="popup__input-error popup__input-url-place-error">
-            El nombre del lugar es requerido
+        {linkError && (
+          <span className="popup__input-error popup__error-visible">
+            {linkError}
           </span>
         )}
       </div>
     </PopupWithForm>
   );
-}
+};
 
-export default AddPlacePopup
+export default AddPlacePopup;
