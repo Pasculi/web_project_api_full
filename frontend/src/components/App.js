@@ -257,10 +257,11 @@ function App() {
             isOpen={isOpenConfirmation}
             titulo="¿Estas Seguro?"
             button="Sí"
+            isactiveButton={false}
             form="form-confirm"
             onClose={closeAllPopups}
             onSubmit={handleSubmit}
-            isbuttonActive={isbuttonActive}
+           
           />
           <InfoTooltip
             isOpen={openTooltip}

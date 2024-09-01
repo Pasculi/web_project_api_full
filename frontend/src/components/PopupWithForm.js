@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import imageClose from "../images/vector__close.png";
 
 const PopupWithForm = ({
@@ -9,9 +10,33 @@ const PopupWithForm = ({
   children,
   onClose,
   onSubmit,
-  isbuttonActive,
 }) => {
-  
+  const formRef = useRef(null);
+  const [isButtonActive, setIsButtonActive] = useState(false);
+
+  const validateForm = () => {
+    if (!formRef.current) return;
+
+    const form = formRef.current;
+    const isValid = form.checkValidity();
+    setIsButtonActive(isValid);
+  };
+
+  useEffect(() => {
+    if (formRef.current) {
+      const form = formRef.current;
+
+      const handleInput = () => validateForm();
+      form.addEventListener("input", handleInput);
+
+      validateForm();
+
+      return () => {
+        form.removeEventListener("input", handleInput);
+      };
+    }
+  }, [isOpen]);
+
   return (
     <>
       <div
@@ -33,6 +58,7 @@ const PopupWithForm = ({
             />
           </button>
           <form
+            ref={formRef}
             action="#"
             name={`${name}`}
             className={`popup__${form} popup__form-${name} popup-${name}-from`}
@@ -49,11 +75,14 @@ const PopupWithForm = ({
             {children}
 
             {name === "tooltip" ? (
-              <h2 className="popup__message">{ " " }</h2>
+              <h2 className="popup__message"> </h2>
             ) : (
               <button
-                className={`popup__button popup__button-${name}`}
+                className={`popup__button popup__button-${name} ${
+                  !isButtonActive ? "popup__button-disabled" : ""
+                } `}
                 type="submit"
+                disabled={!isButtonActive} // Desactivar el botón si el formulario no es válido
               >
                 {button}
               </button>
@@ -64,4 +93,5 @@ const PopupWithForm = ({
     </>
   );
 };
+
 export default PopupWithForm;
