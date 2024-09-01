@@ -79,7 +79,6 @@ exports.likeCard = async (req, res) => {
       { $addToSet: { likes: req.user._id } },
       { new: true }
     );
-    console.log(card);
     if (!card) {
       return res.status(404).json({ message: "Card not found" });
     }
