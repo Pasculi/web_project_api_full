@@ -41,4 +41,4 @@ Este proyecto consiste en el desarrollo de una aplicación web que incluye tanto
 
 1. Clona el repositorio: 
    ```bash
-   git clone https://github.com/tuusuario/aound-us.git
+   git clone https://github.com/Pasculi/web_project_api_full.git
