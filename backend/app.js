@@ -9,7 +9,7 @@ const cardsRouter = require("./routes/cards");
 require("dotenv").config();
 const cors = require('cors');
 const { errors } = require("celebrate");
-const { PORT } = process.env || 5001;
+const { PORT = 3000 } = process.env;
 
 app.use(cors());
 app.options("*", cors());
@@ -35,5 +35,5 @@ app.use('/', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Conectado a servidor http://localhost:${PORT}`);
+  console.log(`Conectado a servidor`);
 });

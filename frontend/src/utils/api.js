@@ -100,7 +100,7 @@ class Api {
 
 
 const api = new Api(
-  "http://localhost:5000",
+  "https://api.arounduspasculi.strangled.net",
   "962f1eb6-c335-46ac-b3a5-7d22c2a5fd9a"
 );
 
