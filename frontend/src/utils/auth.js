@@ -40,6 +40,6 @@ class Auth {
   }
 }
 
-const auth = new Auth("http://localhost:5000");
+const auth = new Auth("https://www.arounduspasculi.strangled.net");
 
 export default auth;
