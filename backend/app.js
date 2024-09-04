@@ -3,23 +3,63 @@ const mongoose = require("mongoose");
 const app = express();
 const { HttpStatus, HttpResponseMessage } = require("./enums/httpError");
 const auth = require("./middlewares/auth");
-const authRoutes = require("./routes/auth");
-const usersRouter = require("./routes/users");
+const authRoutes = require("./routes/auth");const usersRouter = require("./routes/users");
 const cardsRouter = require("./routes/cards");
 require("dotenv").config();
 const cors = require('cors');
 const { errors } = require("celebrate");
-const { PORT } = process.env || 5001;
 
-app.use(cors());
-app.options("*", cors());
+app.use(cors({
+  origin: '*', // Specify allowed origin
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed HTTP methods
+  credentials: true // Allow sending cookies across origin
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+/*
+
+const allowedOrigins = [
+  'localhost:3000',
+  'https://arounduspasculi.strangled.net',
+  'https://www.arounduspasculi.strangled.net',
+    'https://arounduspasculi.strangled.net/signin',
+    'https://www.arounduspasculi.strangled.net/signin',
+    'https://arounduspasculi.strangled.net/signup',
+    'https://www.arounduspasculi.strangled.net/signup',
+'https://api.arounduspasculi.strangled.net',
+'https://api.arounduspasculi.strangled.net/signin',
+'https://api.arounduspasculi.strangled.net/signup'
+
+];
+
+const DEFAULT_ALLOWED_METHODS = "GET,HEAD,PUT,PATCH,POST,DELETE";
+
+module.exports = (req, res, next) => {
+  const { method } = req;
+  const origin = req.headers.origin;
+  const requestHeaders = req.headers['access-control-request-headers'];
+
+    if (allowedOrigins.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+  if (method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
+    res.header('Access-Control-Allow-Headers', requestHeaders);
+    return res.end();
+  }
+  next();
+};
+*/
+const { PORT = 3000 } = process.env;
+
+
 app.use(express.json());
 app.use(authRoutes);
 app.use(auth);
 
 mongoose.set("strictQuery", false);
 mongoose
-  .connect(`${process.env.DB_URI}`)
+  .connect(`mongodb+srv://jsepulveda:havl3EbQYE3OEqx3@cluster0.c75i3.mongodb.net/`)
   .then(() => console.log("MongoDB connect successfully"))
   .catch((err) => console.error("Mongo connection error", err));
 
@@ -35,5 +75,5 @@ app.use('/', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Conectado a servidor http://localhost:${PORT}`);
+  console.log(`Conectado a servidor en port ${PORT}`);
 });
