@@ -14,6 +14,7 @@ const { PORT = 3000 } = process.env;
 app.use(cors());
 app.options("*", cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(authRoutes);
 app.use(auth);
 
