@@ -155,7 +155,7 @@ function App() {
 
   const handleRegister = async ({ email, password }) => {
     try {
-      const { error } = await auth.register({ email, password });
+      const { error } = await auth.register({email, password});
   
       if (error) {
         setMessageTooltip(error);

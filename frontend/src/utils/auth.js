@@ -19,7 +19,7 @@ class Auth {
       });
   }
 
-  login({ email, password }) {
+  login({email, password}) {
     return fetch(`${this._url}/signin`, {
       method: "POST",
       headers: {
@@ -40,6 +40,6 @@ class Auth {
   }
 }
 
-const auth = new Auth("http://localhost:5000");
+const auth = new Auth("https://api.arounduspasculi.strangled.net");
 
 export default auth;
