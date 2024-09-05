@@ -14,7 +14,7 @@ app.use(cors({
   origin: '*', // Specify allowed origin
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed HTTP methods
   credentials: true, // Allow sending cookies across origin
-/*   allowedHeaders: ['Content-Type', 'Authorization'] */
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 /* const allowedOrigins = [
