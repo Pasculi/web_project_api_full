@@ -75,7 +75,7 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
           name="name-user"
           id="popup__input-profile"
           minLength="2"
-          maxLength="40"
+          maxLength="30"
           value={name || ""}
           onChange={handleNameChange}
           required
