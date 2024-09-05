@@ -10,14 +10,14 @@ require("dotenv").config();
 const cors = require("cors");
 const { errors } = require("celebrate");
 
-app.use(cors({
+/* app.use(cors({
   origin: '*', // Specify allowed origin
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH','HEAD'], // Specify allowed HTTP methods
   credentials: true, // Allow sending cookies across origin
   allowedHeaders: ['Content-Type', 'Authorization']
-}));
+})); */
 
-/* const allowedOrigins = [
+const allowedCors = [
   "localhost:3000",
   "https://arounduspasculi.strangled.net",
   "https://www.arounduspasculi.strangled.net",
@@ -25,28 +25,22 @@ app.use(cors({
   "https://www.arounduspasculi.strangled.net/signin",
   "https://arounduspasculi.strangled.net/signup",
   "https://www.arounduspasculi.strangled.net/signup",
-  "https://api.arounduspasculi.strangled.net",
-  "https://api.arounduspasculi.strangled.net/signin",
-  "https://api.arounduspasculi.strangled.net/signup",
 ];
-
-
-app.use(function (req, res, next) {
-  const {origin} = req.headers;
-  const { method } = req;
+app.use((req, res, next) => {
+  const { origin } = req.headers; // Obtener el origen de la solicitud
+  const { method } = req; // Obtener el método HTTP de la solicitud
   const DEFAULT_ALLOWED_METHODS = "GET,HEAD,PUT,PATCH,POST,DELETE";
-  const requestHeaders = req.headers["access-control-request-headers"];
-
-  if (allowedOrigins.includes(origin)) {
+  if (allowedCors.includes(origin)) {
     res.header("Access-Control-Allow-Origin", origin);
   }
   if (method === "OPTIONS") {
     res.header("Access-Control-Allow-Methods", DEFAULT_ALLOWED_METHODS);
+    const requestHeaders = req.headers["access-control-request-headers"];
     res.header("Access-Control-Allow-Headers", requestHeaders);
     return res.end();
   }
   next();
-}); */
+});
 
 const { PORT = 3000 } = process.env;
 
