@@ -10,12 +10,6 @@ require("dotenv").config();
 const cors = require("cors");
 const { errors } = require("celebrate");
 
-/* app.use(cors({
-  origin: '*', // Specify allowed origin
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH','HEAD'], // Specify allowed HTTP methods
-  credentials: true, // Allow sending cookies across origin
-  allowedHeaders: ['Content-Type', 'Authorization']
-})); */
 
 const allowedCors = [
   "localhost:3000",
