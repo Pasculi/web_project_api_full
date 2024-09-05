@@ -10,14 +10,14 @@ require("dotenv").config();
 const cors = require("cors");
 const { errors } = require("celebrate");
 
-/* app.use(cors({
+app.use(cors({
   origin: '*', // Specify allowed origin
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed HTTP methods
   credentials: true, // Allow sending cookies across origin
-  allowedHeaders: ['Content-Type', 'Authorization']
-})); */
+/*   allowedHeaders: ['Content-Type', 'Authorization'] */
+}));
 
-const allowedOrigins = [
+/* const allowedOrigins = [
   "localhost:3000",
   "https://arounduspasculi.strangled.net",
   "https://www.arounduspasculi.strangled.net",
@@ -46,7 +46,7 @@ app.use(function (req, res, next) {
     return res.end();
   }
   next();
-});
+}); */
 
 const { PORT = 3000 } = process.env;
 
