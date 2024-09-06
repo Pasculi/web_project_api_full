@@ -12,7 +12,8 @@ const { errors } = require("celebrate");
 
 
 const allowedCors = [
-  "localhost:3000",
+  "http://localhost:3000",
+  "http://localhost:3001",
   "https://arounduspasculi.strangled.net",
   "https://www.arounduspasculi.strangled.net",
   "https://arounduspasculi.strangled.net/signin",
@@ -23,6 +24,7 @@ const allowedCors = [
 app.use((req, res, next) => {
   const { origin } = req.headers; // Obtener el origen de la solicitud
   const { method } = req; // Obtener el método HTTP de la solicitud
+  console.log(method)
   const DEFAULT_ALLOWED_METHODS = "GET,HEAD,PUT,PATCH,POST,DELETE";
   if (allowedCors.includes(origin)) {
     res.header("Access-Control-Allow-Origin", origin);

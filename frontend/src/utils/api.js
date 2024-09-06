@@ -8,7 +8,7 @@ class Api {
     this._token = `Bearer ${token}`;
   }
 
-  _makeRequest(endpoint, method = "GET", bodyData = null) {
+  _methodHeaders(endpoint, method = "GET", bodyData = null) {
     const options = {
       method,
       headers: {
@@ -27,36 +27,36 @@ class Api {
   }
 
   getUserInfo() {
-    return this._makeRequest(`/users/me`);
+    return this._methodHeaders(`/users/me`);
   }
 
   updateUser({ name, about }) {
-    return this._makeRequest(`/users/me`, "PATCH", { name, about });
+    return this._methodHeaders(`/users/me`, "PATCH", { name, about });
   }
 
   updateAvatar(avatar) {
-    return this._makeRequest(`/users/me/avatar`, "PATCH", { avatar });
+    return this._methodHeaders(`/users/me/avatar`, "PATCH", { avatar });
   }
 
   getInitialCards() {
-    return this._makeRequest(`/cards`);
+    return this._methodHeaders(`/cards`);
   }
 
   addCard({ name, link }) {
-    return this._makeRequest(`/cards`, "POST", { name, link });
+    return this._methodHeaders(`/cards`, "POST", { name, link });
   }
 
   deleteCard(idCard) {
-    return this._makeRequest(`/cards/${idCard}`, "DELETE");
+    return this._methodHeaders(`/cards/${idCard}`, "DELETE");
   }
 
   likeCard(idCard, isLiked) {
     const method = isLiked ? "DELETE" : "PUT";
-    return this._makeRequest(`/cards/likes/${idCard}`, method);
+    return this._methodHeaders(`/cards/likes/${idCard}`, method);
   }
 
   deleteLikeCard(idCard) {
-    return this._makeRequest(`/cards/likes/${idCard}`, "DELETE");
+    return this._methodHeaders(`/cards/likes/${idCard}`, "DELETE");
   }
 }
 

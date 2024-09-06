@@ -5,8 +5,9 @@
 
 Este proyecto consiste en el desarrollo de una aplicación web que incluye tanto un **frontend** como un **backend**. 
 
-- **Frontend**: Desarrollado en [React](https://reactjs.org/) con **HTML**, **CSS**, y **JavaScript**. Se puede acceder en `http://localhost:3000`.
-- **Backend**: Desarrollado en [Node.js](https://nodejs.org/) con [Express.js](https://expressjs.com/) y [MongoDB](https://www.mongodb.com/). Se puede acceder en `http://localhost:5000`.
+- **Frontend**: Desarrollado en [React](https://reactjs.org/) con **HTML**, **CSS**, y **JavaScript**. Se puede acceder en [https://arounduspasculi.strangled.net](https://arounduspasculi.strangled.net),	
+[https://www.arounduspasculi.strangled.net](https://www.arounduspasculi.strangled.net).
+- **Backend**: Desarrollado en [Node.js](https://nodejs.org/) con [Express.js](https://expressjs.com/) y [MongoDB](https://www.mongodb.com/). Se puede acceder en [http://api.arounduspasculi.strangled.net](https://api.arounduspasculi.strangled.net).
 
 ### ✨ Funcionalidades del Sistema
 
