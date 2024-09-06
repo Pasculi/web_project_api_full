@@ -14,7 +14,7 @@ Este proyecto consiste en el desarrollo de una aplicación web que incluye tanto
 1. **Registro de Usuarios**: Los usuarios pueden crear una cuenta proporcionando su información básica.
 2. **Login de Usuario**: Autenticación de usuarios registrados para acceder a funcionalidades adicionales.
 3. **Edición de Avatar**: Permite a los usuarios cambiar su avatar personal.
-4. **Edición de Perfil**: Los usuarios pueden actualizar su información de perfil, incluyendo nombre, correo electrónico, etc.
+4. **Edición de Perfil**: Los usuarios pueden actualizar su información de perfil, incluyendo nombre y acerca de.
 5. **Formulario para Subir Tarjetas**: Funcionalidad para subir tarjetas con un nombre y una URL de imagen. Estas tarjetas se almacenan en la base de datos y se muestran en el frontend.
 
 ### 🛠️ Tecnologías Utilizadas
