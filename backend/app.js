@@ -24,7 +24,6 @@ const allowedCors = [
 app.use((req, res, next) => {
   const { origin } = req.headers; // Obtener el origen de la solicitud
   const { method } = req; // Obtener el método HTTP de la solicitud
-  console.log(method)
   const DEFAULT_ALLOWED_METHODS = "GET,HEAD,PUT,PATCH,POST,DELETE";
   if (allowedCors.includes(origin)) {
     res.header("Access-Control-Allow-Origin", origin);

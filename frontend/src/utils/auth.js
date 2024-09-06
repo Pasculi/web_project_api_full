@@ -40,8 +40,6 @@ class Auth {
   }
 }
 
-/* const auth = new Auth("https://api.arounduspasculi.strangled.net"); */
-
 const auth = new Auth("http://localhost:3000");
 
 export default auth;
