@@ -48,7 +48,7 @@ app.use(auth);
 mongoose.set("strictQuery", false);
 mongoose
   .connect(
-    `mongodb+srv://jsepulveda:havl3EbQYE3OEqx3@cluster0.c75i3.mongodb.net/`
+    process.env.DB_URI
   )
   .then(() => console.log("MongoDB connect successfully"))
   .catch((err) => console.error("Mongo connection error", err));
