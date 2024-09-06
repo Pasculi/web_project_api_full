@@ -1,103 +1,64 @@
 class Api {
   constructor(url, token) {
     this._url = url;
-    this._token = token;
+    this._token = `Bearer ${token}`;
   }
 
   setToken(token) {
     this._token = `Bearer ${token}`;
   }
 
-  getUserInfo() {
-    return fetch(`${this._url}/users/me`, {
+  _makeRequest(endpoint, method = "GET", bodyData = null) {
+    const options = {
+      method,
       headers: {
         authorization: this._token,
         "Content-Type": "application/json",
       },
-    }).then((response) => response.json());
+    };
+
+    if (bodyData) {
+      options.body = JSON.stringify(bodyData);
+    }
+
+    return fetch(`${this._url}${endpoint}`, options).then((response) =>
+      response.json()
+    );
+  }
+
+  getUserInfo() {
+    return this._makeRequest(`/users/me`);
   }
 
   updateUser({ name, about }) {
-    return fetch(`${this._url}/users/me`, {
-      headers: {
-        authorization: this._token,
-        "Content-Type": "application/json",
-      },
-      method: "PATCH",
-      body: JSON.stringify({
-        name,
-        about,
-      }),
-    }).then((response) => response.json());
+    return this._makeRequest(`/users/me`, "PATCH", { name, about });
   }
 
   updateAvatar(avatar) {
-    return fetch(`${this._url}/users/me/avatar`, {
-      headers: {
-        authorization: this._token,
-        "Content-Type": "application/json",
-      },
-      method: "PATCH",
-      body: JSON.stringify({
-        avatar,
-      }),
-    }).then((response) => response.json());
+    return this._makeRequest(`/users/me/avatar`, "PATCH", { avatar });
   }
 
   getInitialCards() {
-    return fetch(`${this._url}/cards`, {
-      headers: {
-        authorization: this._token,
-        "Content-Type": "application/json",
-      },
-    }).then((response) => response.json());
+    return this._makeRequest(`/cards`);
   }
 
   addCard({ name, link }) {
-    return fetch(`${this._url}/cards`, {
-      headers: {
-        authorization: this._token,
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify({
-        link,
-        name,
-      }),
-    }).then((response) => response.json());
+    return this._makeRequest(`/cards`, "POST", { name, link });
   }
+
   deleteCard(idCard) {
-    return fetch(`${this._url}/cards/${idCard}`, {
-      headers: {
-        authorization: this._token,
-        "Content-Type": "application/json",
-      },
-      method: "DELETE",
-    }).then((response) => response.json());
+    return this._makeRequest(`/cards/${idCard}`, "DELETE");
   }
 
   likeCard(idCard, isLiked) {
     const method = isLiked ? "DELETE" : "PUT";
-    return fetch(`${this._url}/cards/likes/${idCard}`, {
-      headers: {
-        authorization: this._token,
-        "Content-Type": "application/json",
-      },
-      method: method,
-    }).then((response) => response.json());
+    return this._makeRequest(`/cards/likes/${idCard}`, method);
   }
-  
+
   deleteLikeCard(idCard) {
-    return fetch(`${this._url}/cards/likes/${idCard}`, {
-      headers: {
-        authorization: this._token,
-        "Content-Type": "application/json",
-      },
-      method: "DELETE",
-    }).then((response) => response.json());
+    return this._makeRequest(`/cards/likes/${idCard}`, "DELETE");
   }
 }
-
 
 const api = new Api(
   "https://api.arounduspasculi.strangled.net",

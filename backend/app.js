@@ -36,7 +36,7 @@ app.use((req, res, next) => {
   next();
 });
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3000 } = process.env || 3001;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
